@@ -4,6 +4,8 @@ pipeline {
         stage('拉取代码') {
             steps {
                 echo '拉取代码'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '55b98a6e-afc4-40fc-8999-2482b0ee5f1b', url: 'git@github.com:cupxu/git-test.git']]])
+
             }
         }
 
