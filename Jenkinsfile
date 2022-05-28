@@ -19,7 +19,7 @@ node{
         sh "mvn clean package dockerfile:build"
 
         // 定义镜像名
-        def imageName = "${arbor_project_name}:${tag}"
+        def imageName = "${harbor_project_name}:${tag}"
 
         sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
 
