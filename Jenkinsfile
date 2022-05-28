@@ -9,6 +9,8 @@ def tag = "latest"
 def harbor_url = "47.96.190.164:85"
 // harbor项目名
 def harbor_project_name = "git-test"
+// harbor 登录凭证
+def harbor_auth = "8d1dd335-c4e9-4ce4-bf4e-48df3c61d338"
 node{
     stage('拉取代码'){
         checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], extensions: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
@@ -22,6 +24,15 @@ node{
         def imageName = "${harbor_project_name}:${tag}"
 
         sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
+
+        //登录Harbor，并上传镜像
+        withCredentials([usernamePassword(credentialsId: "${harbor_auth}",
+        passwordVariable: 'password', usernameVariable: 'username')]) {
+        //登录
+        sh "docker login -u ${username} -p ${password} ${harbor_url}"
+        //上传镜像
+        sh "docker push ${harbor_url}/${harbor_project_name}/${imageName}"
+        }
 
     }
 }
