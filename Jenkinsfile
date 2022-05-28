@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('拉取代码') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '55b98a6e-afc4-40fc-8999-2482b0ee5f1b', url: 'git@github.com:cupxu/git-test.git']]])
+
+            }
+        }
+
+        stage('编译构建') {
+            steps {
+                    sh 'mvn clean package'
+                }
+        }
+
+        stage('项目部署') {
+            steps {
+                echo '项目部署'
+            }
+        }
+    }
+}
