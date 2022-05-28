@@ -8,7 +8,7 @@ node{
         checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], extensions: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
     }
 
-    stage('编译'){
+    stage('maven 打包'){
         sh "mvn clean package"
     }
 }
