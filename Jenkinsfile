@@ -7,8 +7,8 @@ def git_url = "git@github.com:cupxu/git-test.git"
 def tag = "latest"
 // harbor地址
 def harbor_url = "47.96.190.164:85"
-
-def harbor_project = "git-test"
+// harbor项目名
+def harbor_project_name = "git-test"
 node{
     stage('拉取代码'){
         checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], extensions: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
@@ -19,9 +19,9 @@ node{
         sh "mvn clean package dockerfile:build"
 
         // 定义镜像名
-        def imageName = "${project_name}:${tag}"
+        def imageName = "${arbor_project_name}:${tag}"
 
-        sh "docker tag ${imageName} ${harbor_url}/${harbor_project}/${imageName}"
+        sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
 
     }
 }
