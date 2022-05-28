@@ -41,13 +41,7 @@ node{
         //=====以下为远程调用进行项目部署========
         // 编写deploy.sh部署脚本
         sshPublisher(publishers: [sshPublisherDesc(configName: 'tx-server',
-        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand:
-        "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project_name $project_name
-        $tag $port", execTimeout: 120000, flatten: false, makeEmptyDirs: false,
-        noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '',
-        remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')],
-        usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-        }
+        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project_name $project_name $tag $port", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])}
 
     }
 }
