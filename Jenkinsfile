@@ -12,4 +12,5 @@ node{
         // dockerfile:build 触发docker build命令
         sh "mvn clean package dockerfile:build"
     }
+
 }
