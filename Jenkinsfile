@@ -1,23 +1,14 @@
-pipeline {
-    agent any
-    stages {
-        stage('拉取代码') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '55b98a6e-afc4-40fc-8999-2482b0ee5f1b', url: 'git@github.com:cupxu/git-test.git']]])
 
-            }
-        }
+// git SSH 凭证
+def git_auth = "55b98a6e-afc4-40fc-8999-2482b0ee5f1b"
+// git url地址
+def git_url = "git@github.com:cupxu/git-test.git"
+node{
+    stage('拉取代码'){
+        checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], extensions: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
+    }
 
-        stage('编译构建') {
-            steps {
-                    sh 'mvn clean package'
-                }
-        }
-
-        stage('项目部署') {
-            steps {
-                echo '项目部署'
-            }
-        }
+    stage('编译'){
+        sh "mvn clean package"
     }
 }
