@@ -7,7 +7,7 @@ def git_url = "git@github.com:cupxu/git-test.git"
 def tag = "latest"
 // harbor地址
 def harbor_url = "47.96.190.164:85"
-// harbor项目名
+// 结果显示 这个参数名为初次编译后的镜像名
 def harbor_project_name = "git-test"
 // harbor 登录凭证
 def harbor_auth = "8d1dd335-c4e9-4ce4-bf4e-48df3c61d338"
@@ -41,6 +41,6 @@ node{
 
         //=====以下为远程调用进行项目部署========
         // 编写deploy.sh部署脚本
-        sshPublisher(publishers: [sshPublisherDesc(configName: 'tx-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project_name $project_name $tag $port", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'tx-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project_name $project_name $tag $port", execTimeout: 0, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
     }
 }
