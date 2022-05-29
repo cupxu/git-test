@@ -8,7 +8,7 @@ def tag = "latest"
 // harbor地址
 def harbor_url = "47.96.190.164:85"
 // harbor项目名
-def harbor_project_name = "harbor_project"
+def harbor_project_name = "git-test"
 // harbor 登录凭证
 def harbor_auth = "8d1dd335-c4e9-4ce4-bf4e-48df3c61d338"
 node{
