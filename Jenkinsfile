@@ -8,7 +8,7 @@ def tag = "latest"
 // harbor地址
 def harbor_url = "47.96.190.164:85"
 // harbor项目名
-def harbor_project_name = "git-test"
+def harbor_project_name = "harbor_project"
 // harbor 登录凭证
 def harbor_auth = "8d1dd335-c4e9-4ce4-bf4e-48df3c61d338"
 node{
@@ -23,6 +23,7 @@ node{
         // 定义镜像名
         def imageName = "${harbor_project_name}:${tag}"
 
+        // 上传镜像到harbor
         sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
 
         //登录Harbor，并上传镜像
@@ -34,7 +35,7 @@ node{
         sh "docker push ${harbor_url}/${harbor_project_name}/${imageName}"
         }
 
-        //删除本地镜像
+        //阿里云 强制删除本地镜像 force
         sh "docker rmi -f ${imageName}"
         sh "docker rmi -f ${harbor_url}/${harbor_project_name}/${imageName}"
 
